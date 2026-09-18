@@ -12,21 +12,27 @@ public class DataBaseManager {
     private final String url;
     private final String user;
     private final String password;
+    private final ConnectionPool connectionPool;
 
     public DataBaseManager(String host, String DataBaseName, String user, String password) {
         this.url = "jdbc:postgresql://" + host + "/" + DataBaseName;
         this.user = user;
         this.password = password;
+        this.connectionPool = new ConnectionPool(host, DataBaseName, user, password, 10);
     }
 
     /**
-     * Новое соединение на каждый вызов.
+     * Новое соединение из пула.
      * @return
      * @throws SQLException
      */
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        return connectionPool.getConnection();
+    }
+
+    public void shutdown() {
+        connectionPool.shutdown();
     }
 }
 

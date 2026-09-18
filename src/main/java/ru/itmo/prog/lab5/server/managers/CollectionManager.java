@@ -57,19 +57,8 @@ public class CollectionManager {
         return true;
     }
 
-    public String groupCountingByKiller() {
-        Map<Integer, Dragon> snapshot = getCollection();
-        if (snapshot.isEmpty()) return "Коллекция пуста.";
-        return snapshot.values().stream()
-                .collect(Collectors.groupingBy(
-                        d -> d.getKiller() == null ? "None" : d.getKiller().getName(),
-                        Collectors.counting()))
-                .entrySet().stream().map(e -> "Убийца: " + e.getKey() + " , количество драконов: " + e.getValue())
-                .collect(Collectors.joining("\n"));
-    }
-
     public String printFieldAscendingColor() {
-        return dragonMap.values().stream().map(Dragon::getColor).sorted().map(String::valueOf).collect(Collectors.joining("\n"));
+        return getCollection().values().stream().map(Dragon::getColor).sorted().map(String::valueOf).collect(Collectors.joining("\n"));
     }
 
     /**
@@ -113,10 +102,6 @@ public class CollectionManager {
         }
         return removed;
 }
-    public Integer generateNextId() {
-        return dragonMap.values().stream().filter(d -> d.getId() != null).
-                mapToInt(Dragon::getId).max().orElse(0) + 1;
-    }
 
     @Override
     public String toString() {
@@ -149,7 +134,7 @@ public class CollectionManager {
         return removed;
     }
 
-    public int removeLowerKey(int targetId, long ownerId) throws SQLException {
+    public synchronized int removeLowerKey(int targetId, long ownerId) throws SQLException {
         List<Integer> toRemove = dragonMap.values().stream()
                 .filter(d -> ownerId == d.getOwnerId())
                 .filter(d -> d.getId() < targetId)

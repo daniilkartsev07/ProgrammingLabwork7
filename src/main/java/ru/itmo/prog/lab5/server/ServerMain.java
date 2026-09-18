@@ -65,5 +65,10 @@ public class ServerMain {
         } catch (IOException e) {
             log.error("Ошибка запуска UDP-сервера: {}", e.getMessage());
         }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("Завершение работы...");
+            dataBaseManager.shutdown();
+        }));
     }
 }
