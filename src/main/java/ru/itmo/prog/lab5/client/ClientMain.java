@@ -76,6 +76,7 @@ public class ClientMain {
      * @param clientManager
      * @return
      */
+
     private static String[] authorise(Scanner scanner, ClientManager clientManager) {
         while (true) {
             System.out.println("Выберите действие: 1 - войти, 2 - зарегистрироваться.");

@@ -3,6 +3,11 @@ import ru.itmo.prog.lab5.common.utilites.PasswordHasher;
 import ru.itmo.prog.lab5.common.models.User;
 import java.sql.*;
 
+/**
+ * Data Access Object для работы с таблицей пользователей.
+ * Отвечает за регистрацию и аутентификацию пользователей.
+ */
+
 public class UserDAO {
     private final DataBaseManager dataBaseManager;
 
@@ -30,9 +35,13 @@ public class UserDAO {
                 return null;
             }
 
-        /**
-         * Возвращает пользователя при верных логине/пароле, иначе null
-         */
+    /**
+     * Аутентификация пользователя по логину и паролю.
+     * @param login
+     * @param password
+     * @return Объект User при успешной аутентификации
+     * @throws SQLException
+     */
 
         public User authenticate(String login, String password) throws SQLException {
             String sql = "SELECT id, password_hash FROM users WHERE login = ?";

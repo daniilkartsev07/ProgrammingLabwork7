@@ -84,6 +84,7 @@ public class UDPServer {
          * Обрабатывает полученный запрос: десериализирует, выполняет команду,
              * передает готовый ответ на отправку. Выполняется в потоке Fixed pool.
          */
+
      private void handleRequest(DatagramPacket datagramPacket) {
          Response response;
          try {

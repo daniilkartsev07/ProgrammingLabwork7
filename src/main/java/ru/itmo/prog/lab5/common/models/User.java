@@ -32,10 +32,7 @@ public class User implements Serializable {
         return name;
     }
 
-//    @Override
-//    public boolean validate() {
-//        return getName().length() < 40;
-//    }
+
     public String getPassword() {
         return password;
     }
