@@ -21,6 +21,6 @@ CREATE TABLE IF NOT EXISTS dragons (
     killer_location_x INTEGER,
     killer_location_y INTEGER,
     killer_location_z DOUBLE PRECISION,
-    killer_location_name VARCHAR(315)
+    killer_location_name VARCHAR(315),
     owner_id BIGINT NOT NULL REFERENCES users(id)
 );
