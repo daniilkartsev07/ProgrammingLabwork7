@@ -20,7 +20,6 @@ public class DataBaseManager {
         this.password = password;
         this.connectionPool = new ConnectionPool(host, DataBaseName, user, password, 10);
     }
-
     /**
      * Новое соединение из пула.
      * @return
